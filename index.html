@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para mi amor</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="overlay">
+        <button id="start-btn">
+            <div class="heart-btn"></div>
+            <span>Valentín</span>
+        </button>
+    </div>
+
+    <div class="container hidden" id="main-content">
+        <div class="tree-area">
+            <div id="seed" class="seed hidden"></div>
+            <div id="trunk" class="trunk"></div>
+            <div id="leaves-container"></div>
+        </div>
+
+        <div class="message-box">
+            <h2 id="typed-text"></h2>
+            <div class="counter-card">
+                <p>Nuestro tiempo juntos:</p>
+                <div id="timer">
+                    <span id="days">0</span>d <span id="hours">0</span>h <span id="minutes">0</span>m <span id="seconds">0</span>s
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="cursor-trail"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,158 @@
+:root {
+    --primary-pink: #ff4d6d;
+    --dark-pink: #c9184a;
+    --bg-color: #fff0f3;
+}
+
+body {
+    background-color: var(--bg-color);
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* --- Pantalla de Inicio --- */
+#overlay {
+    position: fixed;
+    inset: 0;
+    background: var(--bg-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    transition: opacity 1s;
+}
+
+#start-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: var(--dark-pink);
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.heart-btn {
+    width: 50px;
+    height: 50px;
+    background: var(--primary-pink);
+    transform: rotate(-45deg);
+    position: relative;
+    animation: pulse 1.5s infinite;
+}
+
+.heart-btn::before, .heart-btn::after {
+    content: "";
+    width: 50px;
+    height: 50px;
+    background: var(--primary-pink);
+    border-radius: 50%;
+    position: absolute;
+}
+.heart-btn::before { top: -25px; left: 0; }
+.heart-btn::after { left: 25px; top: 0; }
+
+@keyframes pulse {
+    0% { transform: rotate(-45deg) scale(1); }
+    50% { transform: rotate(-45deg) scale(1.2); }
+    100% { transform: rotate(-45deg) scale(1); }
+}
+
+/* --- Árbol y Semilla --- */
+.container {
+    text-align: center;
+    opacity: 1;
+    transition: opacity 1s;
+}
+
+.hidden { display: none; opacity: 0; }
+
+.tree-area {
+    position: relative;
+    height: 400px;
+    width: 400px;
+    margin: 0 auto;
+}
+
+.seed {
+    width: 20px;
+    height: 25px;
+    background: #5d4037;
+    border-radius: 50% 50% 40% 40%;
+    position: absolute;
+    left: 50%;
+    top: 20%;
+    transform: translateX(-50%);
+    z-index: 10;
+}
+
+.trunk {
+    width: 12px;
+    background: linear-gradient(to top, #3e2723, #5d4037);
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 0;
+    transition: height 2s ease-out;
+    border-radius: 6px;
+}
+
+/* Copa del árbol */
+#leaves-container {
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 100%;
+}
+
+.leaf {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background: var(--primary-pink);
+    transform: rotate(-45deg) scale(0);
+    transition: transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.leaf::before, .leaf::after {
+    content: "";
+    width: 15px;
+    height: 15px;
+    background: inherit;
+    border-radius: 50%;
+    position: absolute;
+}
+.leaf::before { top: -8px; left: 0; }
+.leaf::after { left: 8px; top: 0; }
+
+/* Mensaje y Contador */
+.message-box { margin-top: 20px; padding: 0 20px; }
+#typed-text { color: var(--dark-pink); min-height: 80px; font-size: 1.1rem; line-height: 1.5; }
+.counter-card { background: white; padding: 15px; border-radius: 20px; box-shadow: 0 10px 20px rgba(255, 77, 109, 0.2); }
+
+/* Estela del mouse */
+.trail-heart {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    background: var(--primary-pink);
+    transform: rotate(-45deg);
+    pointer-events: none;
+    z-index: 999;
+    animation: fadeOut 1s forwards;
+}
+
+@keyframes fadeOut {
+    to { opacity: 0; transform: rotate(-45deg) translateY(-50px) scale(0.5); }
+}
