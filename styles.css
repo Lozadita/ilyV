@@ -1,0 +1,420 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    background-color: #f5ebe0;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+}
+
+#container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background-color: #f5ebe0;
+}
+
+/* ============================================
+   PANTALLA INICIAL
+   ============================================ */
+
+#start-screen {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 100;
+    background-color: #f5ebe0;
+    transition: opacity 0.6s ease-out;
+}
+
+.heart-button {
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 20px;
+}
+
+.heart-icon {
+    width: 50px;
+    height: 50px;
+    background-color: #c41e3a;
+    position: relative;
+    transform: rotate(-45deg);
+    animation: heartbeat 1.2s ease-in-out infinite;
+    transition: transform 0.2s;
+    box-shadow: 0 4px 15px rgba(196, 30, 58, 0.3);
+}
+
+.heart-icon::before,
+.heart-icon::after {
+    content: '';
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    background-color: #c41e3a;
+    border-radius: 50%;
+}
+
+.heart-icon::before {
+    top: -25px;
+    left: 0;
+}
+
+.heart-icon::after {
+    left: 25px;
+    top: 0;
+}
+
+.heart-button:hover .heart-icon {
+    transform: rotate(-45deg) scale(1.08);
+}
+
+.heart-button:active .heart-icon {
+    transform: rotate(-45deg) scale(0.95);
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: rotate(-45deg) scale(1); }
+    14% { transform: rotate(-45deg) scale(1.05); }
+    28% { transform: rotate(-45deg) scale(1); }
+    42% { transform: rotate(-45deg) scale(1.05); }
+    70% { transform: rotate(-45deg) scale(1); }
+}
+
+.button-text {
+    color: #8b1538;
+    font-size: 26px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    position: relative;
+    padding-bottom: 4px;
+}
+
+.button-text::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #8b1538;
+    transform: scaleX(1);
+    transform-origin: left;
+    transition: transform 0.3s;
+}
+
+/* ============================================
+   ANIMACIÓN DE LA SEMILLA
+   ============================================ */
+
+#seed-animation {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: none;
+    justify-content: center;
+    align-items: flex-end;
+    padding-bottom: 80px;
+}
+
+.seed {
+    width: 16px;
+    height: 16px;
+    background-color: #c41e3a;
+    border-radius: 50%;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: fall 1.2s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards;
+    box-shadow: 0 2px 8px rgba(196, 30, 58, 0.4);
+}
+
+@keyframes fall {
+    0% { top: 45%; transform: translateX(-50%) scale(1); }
+    50% { transform: translateX(-50%) scale(0.9); }
+    100% { top: calc(100% - 96px); transform: translateX(-50%) scale(0.6); }
+}
+
+.ground-line {
+    position: absolute;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%) scaleX(0);
+    width: 80%;
+    max-width: 600px;
+    height: 2px;
+    background-color: #5d4037;
+    transform-origin: center;
+    animation: drawLine 0.6s ease-out 1s forwards;
+}
+
+@keyframes drawLine {
+    to { transform: translateX(-50%) scaleX(1); }
+}
+
+/* ============================================
+   ÁRBOL DE CORAZONES - CENTRADO INICIALMENTE
+   ============================================ */
+
+#tree-container {
+    position: absolute;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 350px;
+    height: 450px;
+    display: none;
+    transition: transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), left 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Clase para mover el árbol a la derecha después de formarse */
+#tree-container.moved-right {
+    left: auto;
+    right: 15%;
+    transform: translateX(0);
+}
+
+.trunk {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    background: linear-gradient(to top, #5d4037, #8d6e63);
+    border-radius: 0 0 4px 4px;
+    transform-origin: bottom center;
+    animation: growTrunk 1s ease-out forwards;
+}
+
+@keyframes growTrunk {
+    0% { width: 0; height: 0; }
+    100% { width: 18px; height: 140px; }
+}
+
+/* Hojas de corazón */
+.heart-leaf {
+    position: absolute;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    transform: rotate(-45deg);
+    animation: appearHeart 0.4s ease-out forwards;
+}
+
+.heart-leaf::before,
+.heart-leaf::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: inherit;
+    border-radius: 50%;
+}
+
+.heart-leaf::before {
+    top: -50%;
+    left: 0;
+}
+
+.heart-leaf::after {
+    left: 50%;
+    top: 0;
+}
+
+@keyframes appearHeart {
+    0% { width: 0; height: 0; opacity: 0; transform: rotate(-45deg) scale(0); }
+    50% { transform: rotate(-45deg) scale(1.2); }
+    100% { opacity: 1; transform: rotate(-45deg) scale(1); }
+}
+
+/* Corazones cayendo desde el árbol */
+.falling-heart {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    opacity: 0.9;
+    transform: rotate(-45deg);
+    animation: fallHeart 4s ease-in forwards;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.falling-heart::before,
+.falling-heart::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: inherit;
+    border-radius: 50%;
+}
+
+.falling-heart::before {
+    top: -50%;
+    left: 0;
+}
+
+.falling-heart::after {
+    left: 50%;
+    top: 0;
+}
+
+@keyframes fallHeart {
+    0% {
+        transform: rotate(-45deg) translate(0, 0) scale(1);
+        opacity: 0.9;
+    }
+    20% {
+        opacity: 0.9;
+    }
+    100% {
+        transform: rotate(-45deg) translate(-150px, 400px) scale(0.6);
+        opacity: 0;
+    }
+}
+
+/* ============================================
+   MENSAJE Y CONTADOR
+   ============================================ */
+
+#message-container {
+    position: absolute;
+    left: 8%;
+    top: 50%;
+    transform: translateY(-50%);
+    max-width: 45%;
+    display: none;
+    z-index: 10;
+}
+
+.message-text {
+    color: #5d4037;
+    font-size: 20px;
+    line-height: 2;
+    font-weight: 400;
+}
+
+.message-text div {
+    margin-bottom: 12px;
+    opacity: 0;
+    animation: fadeInLine 0.5s ease-out forwards;
+}
+
+@keyframes fadeInLine {
+    to { opacity: 1; }
+}
+
+.typing-content {
+    display: inline;
+}
+
+.typing-cursor {
+    display: inline-block;
+    width: 2px;
+    height: 18px;
+    background-color: #5d4037;
+    animation: blink 0.8s infinite;
+    margin-left: 3px;
+    vertical-align: middle;
+    margin-bottom: 3px;
+}
+
+@keyframes blink {
+    0%, 45% { opacity: 1; }
+    55%, 100% { opacity: 0; }
+}
+
+/* Contador */
+.counter {
+    position: absolute;
+    bottom: 100px;
+    left: 8%;
+    color: #5d4037;
+    display: none;
+    z-index: 10;
+}
+
+.counter-label {
+    font-size: 15px;
+    margin-bottom: 8px;
+    opacity: 0.9;
+    letter-spacing: 0.5px;
+}
+
+.counter-time {
+    font-size: 22px;
+    font-weight: 600;
+    color: #8b1538;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.5px;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+    #tree-container {
+        width: 280px;
+        height: 350px;
+    }
+    
+    #tree-container.moved-right {
+        right: 5%;
+    }
+    
+    #message-container {
+        left: 5%;
+        top: 8%;
+        transform: none;
+        max-width: 90%;
+    }
+    
+    .message-text {
+        font-size: 17px;
+        line-height: 1.8;
+    }
+    
+    .counter {
+        bottom: 60px;
+        left: 5%;
+    }
+    
+    .counter-time {
+        font-size: 18px;
+    }
+    
+    .button-text {
+        font-size: 22px;
+    }
+}
+
+@media (max-width: 480px) {
+    #tree-container {
+        width: 220px;
+        height: 280px;
+    }
+    
+    #tree-container.moved-right {
+        right: 2%;
+    }
+    
+    .message-text {
+        font-size: 15px;
+    }
+}

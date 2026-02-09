@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>San Valentín</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="container">
+        <!-- Pantalla inicial -->
+        <div id="start-screen">
+            <div class="heart-button" onclick="startAnimation()">
+                <div class="heart-icon"></div>
+                <span class="button-text">San Valentín</span>
+            </div>
+        </div>
+
+        <!-- Animación de la semilla -->
+        <div id="seed-animation">
+            <div class="seed"></div>
+            <div class="ground-line"></div>
+        </div>
+
+        <!-- Contenedor del árbol -->
+        <div id="tree-container">
+            <div class="trunk" id="trunk"></div>
+        </div>
+
+        <!-- Mensaje -->
+        <div id="message-container">
+            <div class="message-text" id="message-text"></div>
+        </div>
+
+        <!-- Contador -->
+        <div class="counter" id="counter">
+            <div class="counter-label">Mi amor por ti comenzó hace...</div>
+            <div class="counter-time" id="counter-time"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
